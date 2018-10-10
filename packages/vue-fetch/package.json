@@ -21,13 +21,11 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",
-    "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@vue/test-utils": "^1.0.0-beta.25",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-node-resolve": "^3.4.0"
   },
-  "gitHead": "492df9be0a155d43250c3c65dd121b810488e6c0",
   "publishConfig": {
     "access": "public"
   }
