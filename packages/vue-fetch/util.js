@@ -100,7 +100,6 @@ export function options(fn, obj, opts) {
             failed,
             backend,
             api,
-            dataType,
             ...rest
           } = _conf;
           commit("VUE_FETCH_UPDATER", { api: path, status: "fetching" });
