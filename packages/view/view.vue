@@ -2,6 +2,9 @@
     <div :style="{
         display: inline ? 'inline-flex': 'flex',
         flexDirection: col ? 'column': 'row',
+        flex: f === '' ? 1 : f,
+        width: w === '' ? '100%' : w,
+        height: h === '' ? '100%' : h,
         justifyContent: !col ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
         alignItems: !col ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
     }">
@@ -20,8 +23,11 @@ export default {
   props: {
     col: Boolean,
     inline: Boolean,
-    ver: String || Boolean,
-    hor: String || Boolean
+    f: Boolean,
+    w: String,
+    h: String,
+    ver: String,
+    hor: String
   }
 };
 </script>
