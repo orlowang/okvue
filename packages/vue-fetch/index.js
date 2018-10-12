@@ -1,5 +1,4 @@
-import Util, { options } from "./util";
-import fetchFuc from "./fetch";
+import Util, { options, fetch } from "./util";
 
 function vuefetch(Vue) {
   if (vuefetch.installed) {
@@ -7,7 +6,7 @@ function vuefetch(Vue) {
   }
 
   Util(Vue);
-  Vue.fetch = fetchFuc;
+  Vue.fetch = fetch;
   Object.defineProperty(Vue.prototype, "$fetch", {
     get() {
       return options(Vue.fetch, this, this.$root.$options.fetch);

@@ -1,10 +1,8 @@
-import { nativeFetch } from "./fetch";
-
 let { slice } = [],
   debug = false,
   ntick;
 
-export const inBrowser = typeof window !== "undefined";
+export const nativeFetch = window.fetch;
 
 export default function({ config, nextTick }) {
   ntick = nextTick;
@@ -94,14 +92,7 @@ export function options(fn, obj, opts) {
       actions: {
         VUE_FETCH_ACTION: ({ commit }, { path, data, config }) => {
           const _conf = { ...opts, ...config };
-          const {
-            prestart,
-            success,
-            failed,
-            backend,
-            api,
-            ...rest
-          } = _conf;
+          const { prestart, success, failed, backend, api, ...rest } = _conf;
           commit("VUE_FETCH_UPDATER", { api: path, status: "fetching" });
           if (prestart) prestart();
           function parsePath(path) {
@@ -213,4 +204,22 @@ function _merge(target, source, deep) {
       target[key] = source[key];
     }
   }
+}
+
+export function fetch(src, data, config) {
+  if (isArray(src)) {
+    return Promise.all(
+      src.map(item =>
+        this.$vm.$store.dispatch("VUE_FETCH_ACTION", {
+          path: item,
+          config: data || {}
+        })
+      )
+    );
+  }
+  return this.$vm.$store.dispatch("VUE_FETCH_ACTION", {
+    path: src,
+    data,
+    config
+  });
 }
