@@ -1,12 +1,12 @@
 <template>
     <div :style="{
         display: inline ? 'inline-flex': 'flex',
-        flexDirection: col ? 'column': 'row',
-        flex: f === '' ? 1 : f,
-        width: w === '' ? '100%' : w,
-        height: h === '' ? '100%' : h,
-        justifyContent: !col ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
-        alignItems: !col ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
+        flexDirection: column ? 'column': 'row',
+        flex: flex === '' ? 1 : flex,
+        width: full ? '100%' : w,
+        height: full ? '100%' : h,
+        justifyContent: !column ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
+        alignItems: !column ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
     }">
         <slot></slot>
     </div>
@@ -21,11 +21,12 @@
 export default {
   name: "o-view",
   props: {
-    col: Boolean,
+    column: Boolean,
     inline: Boolean,
-    f: Boolean,
+    flex: String,
     w: String,
     h: String,
+    full: Boolean,
     ver: String,
     hor: String
   }
