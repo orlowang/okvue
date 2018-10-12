@@ -9,5 +9,9 @@
     "jest": "^23.6.0",
     "lerna": "^3.4.1",
     "rollup": "^0.66.4"
+  },
+  "scripts": {
+    "publish": "lerna publish",
+    "prepublish": "node scripts/build.js"
   }
 }
