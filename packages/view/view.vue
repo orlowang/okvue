@@ -1,7 +1,7 @@
 <template>
     <div :style="{
         display: inline ? 'inline-flex': 'flex',
-        flexDirection: column ? 'column': 'row',
+        flexDirection: column === '' ? 'column': ( column || 'row'),
         flex: flex === '' ? 1 : flex,
         width: full ? '100%' : w,
         height: full ? '100%' : h,
