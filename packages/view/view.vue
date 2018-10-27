@@ -5,8 +5,8 @@
         flex: flex === '' ? 1 : flex,
         width: full === '' ? '100%' : w,
         height: full === '' ? '100%' : h,
-        justifyContent: !column() ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
-        alignItems: !column() ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
+        justifyContent: !isColumn() ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
+        alignItems: !isColumn() ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
     }">
         <slot></slot>
     </div>
