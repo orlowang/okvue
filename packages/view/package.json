@@ -1,6 +1,6 @@
 {
   "name": "@okvue/view",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "vue flex-like layout",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
