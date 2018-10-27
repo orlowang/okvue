@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.1.0",
     "@vue/test-utils": "^1.0.0-beta.25",
     "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-cleaner": "^0.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-vue": "^4.3.2",
     "vue-template-compiler": "^2.5.17"
