@@ -30,7 +30,7 @@ export default {
     ver: String,
     hor: String
   },
-  method: {
+  methods: {
     isColumn() {
       return column === "" || /column/.test(column);
     }
