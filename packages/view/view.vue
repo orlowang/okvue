@@ -3,8 +3,8 @@
         display: inline === '' ? 'inline-flex': 'flex',
         flexDirection: column === '' ? 'column': ( column || 'row'),
         flex: flex === '' ? 1 : flex,
-        width: full ? '100%' : w,
-        height: full ? '100%' : h,
+        width: full === '' ? '100%' : w,
+        height: full === '' ? '100%' : h,
         justifyContent: !column() ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
         alignItems: !column() ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
     }">
@@ -26,7 +26,7 @@ export default {
     flex: String,
     w: String,
     h: String,
-    full: Boolean,
+    full: String,
     ver: String,
     hor: String
   },
