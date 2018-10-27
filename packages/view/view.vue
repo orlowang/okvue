@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     isColumn() {
-      return column === "" || /column/.test(column);
+      return this.column === "" || /column/.test(this.column);
     }
   }
 };
