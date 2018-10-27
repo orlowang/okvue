@@ -1,12 +1,12 @@
 <template>
     <div :style="{
         display: inline ? 'inline-flex': 'flex',
-        flexDirection: column === '' ? 'column': ( column || 'row'),
+        flexDirection: (column === '' || column === true) ? 'column': ( column || 'row'),
         flex: flex === '' ? 1 : flex,
         width: full ? '100%' : w,
         height: full ? '100%' : h,
-        justifyContent: !column ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
-        alignItems: !column ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
+        justifyContent: !column ? ((hor === ''||hor === true) ? 'center' : hor) : ((ver === ''||ver === true) ? 'center' : ver),
+        alignItems: !column ? ((ver === ''||ver === true) ? 'center' : ver) : ((hor === ''||hor === true) ? 'center' : hor)
     }">
         <slot></slot>
     </div>
