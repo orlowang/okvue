@@ -20,7 +20,6 @@ export function binding(option) {
     getters[key] = state => state[key];
   });
   function updateBindingState(state, { prop, val }) {
-    console.log(prop, val);
     state[prop] = val;
   }
   const UPDATE_BINDING_STATE = ({ commit }, payload) => {
