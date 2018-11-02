@@ -1,7 +1,7 @@
 {
-  "name": "@okvue/vue-fetch",
-  "version": "0.1.4",
-  "description": "vue fetcher",
+  "name": "@okvue/vuex-bind",
+  "version": "0.1.0",
+  "description": "vuex bind helper",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
   "scripts": {
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/owcc/okvue/tree/master/packages/vue-fetch"
+    "url": "git+https://github.com/owcc/okvue/tree/master/packages/vuex-bind"
   },
   "keywords": [
     "vue",
-    "fetch",
+    "bind",
     "vuex"
   ],
   "author": "orlo wang <ow.cc@outlook.com>",
