@@ -1,0 +1,35 @@
+{
+  "name": "@okvue/storage",
+  "version": "0.1.2",
+  "description": "localStorage, cooike, sessionStorage",
+  "main": "lib/index.common.js",
+  "module": "lib/index.esm.js",
+  "scripts": {
+    "test": "jest",
+    "build": "rollup --config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owcc/okvue/tree/master/packages/vuex-bind"
+  },
+  "keywords": [
+    "localStorage",
+    "cooike",
+    "sessionStorage"
+  ],
+  "author": "orlo wang <ow.cc@outlook.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@vue/test-utils": "^1.0.0-beta.25",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "js-cookie": "^2.2.0"
+  }
+}
