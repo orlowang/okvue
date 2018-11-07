@@ -7,6 +7,7 @@
         height: full === '' ? '100%' : h,
         justifyContent: !isColumn() ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
         alignItems: !isColumn() ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor),
+        overflow: ovef === '' ? 'hidden' : ovef,
         minWidth: minw,
         maxWidth: maxw,
         minHeight: minh,
@@ -36,7 +37,8 @@ export default {
     minw: String,
     maxw: String,
     minh: String,
-    maxh: String
+    maxh: String,
+    ovef: String
   },
   methods: {
     isColumn() {
