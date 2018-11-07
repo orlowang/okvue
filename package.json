@@ -11,7 +11,7 @@
     "rollup": "^0.66.4"
   },
   "scripts": {
-    "publish": "lerna publish",
-    "prepublish": "node scripts/build.js"
+    "release": "lerna publish",
+    "prerelease": "node scripts/build.js"
   }
 }

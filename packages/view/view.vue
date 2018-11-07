@@ -6,7 +6,11 @@
         width: full === '' ? '100%' : w,
         height: full === '' ? '100%' : h,
         justifyContent: !isColumn() ? (hor === '' ? 'center' : hor) : (ver === '' ? 'center' : ver),
-        alignItems: !isColumn() ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor)
+        alignItems: !isColumn() ? (ver === '' ? 'center' : ver) : (hor === '' ? 'center' : hor),
+        minWidth: minw,
+        maxWidth: maxw,
+        minHeight: minh,
+        maxHeight: maxh
     }">
         <slot></slot>
     </div>
@@ -28,7 +32,11 @@ export default {
     h: String,
     full: String,
     ver: String,
-    hor: String
+    hor: String,
+    minw: String,
+    maxw: String,
+    minh: String,
+    maxh: String
   },
   methods: {
     isColumn() {
