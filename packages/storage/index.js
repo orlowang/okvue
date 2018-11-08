@@ -60,6 +60,7 @@ export default class Storage {
           const { value, ...rest } = val;
           window.Cookies.set(prop, value, { expires: self.expires, ...rest });
         }
+        return true;
       }
     };
   }
@@ -79,6 +80,7 @@ export default class Storage {
         } else {
           _self.removeItem(prop);
         }
+        return true;
       }
     };
   }
