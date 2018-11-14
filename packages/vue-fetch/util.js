@@ -97,7 +97,6 @@ export function options(fn, obj, opts) {
           if (prestart) prestart();
           function parsePath(path) {
             if (typeof path === "string") {
-              rest.method = "GET";
               return backend + "/" + api[path];
             }
             const { url, query } = path;
@@ -109,6 +108,7 @@ export function options(fn, obj, opts) {
                   .map(q => `${q}=${query[q]}`)
                   .join("&");
             }
+            rest.method = "GET";
             return _path;
           }
           return nativeFetch(parsePath(path), {
