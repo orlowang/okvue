@@ -101,15 +101,15 @@ export function options(fn, obj, opts) {
               return backend + "/" + api[path];
             }
             const { url, query } = path;
-            let path = backend + "/" + api[url];
+            let _path = backend + "/" + api[url];
             if (query) {
-              path +=
+              _path +=
                 "?" +
                 Object.keys(query)
                   .map(q => `${q}=${query[q]}`)
                   .join("&");
             }
-            return path;
+            return _path;
           }
           return nativeFetch(parsePath(path), {
             body: JSON.stringify(data),
