@@ -97,18 +97,19 @@ export function options(fn, obj, opts) {
           if (prestart) prestart();
           function parsePath(path) {
             if (typeof path === "string") {
+              rest.method = "GET";
               return backend + "/" + api[path];
             }
             const { url, query } = path;
-            return (
-              backend +
-              "/" +
-              api[url] +
-              "?" +
-              Object.keys(query)
-                .map(q => `${q}=${query[q]}`)
-                .join("&")
-            );
+            let path = backend + "/" + api[url];
+            if (query) {
+              path +=
+                "?" +
+                Object.keys(query)
+                  .map(q => `${q}=${query[q]}`)
+                  .join("&");
+            }
+            return path;
           }
           return nativeFetch(parsePath(path), {
             body: JSON.stringify(data),

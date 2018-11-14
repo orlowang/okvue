@@ -11,7 +11,9 @@
         minWidth: minw,
         maxWidth: maxw,
         minHeight: minh,
-        maxHeight: maxh
+        maxHeight: maxh,
+        zIndex: level,
+        position: pos
     }">
         <slot></slot>
     </div>
@@ -38,7 +40,9 @@ export default {
     maxw: String,
     minh: String,
     maxh: String,
-    ovef: String
+    ovef: String,
+    pos: String,
+    level: Number
   },
   methods: {
     isColumn() {
