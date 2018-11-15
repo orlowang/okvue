@@ -92,7 +92,7 @@ export function options(fn, obj, opts) {
       actions: {
         VUE_FETCH_ACTION: ({ commit }, { path, data, config }) => {
           const _conf = { ...opts, ...config };
-          const { prestart, success, failed, backend, api, ...rest } = _conf;
+          const { prestart, filter, failed, backend, api, ...rest } = _conf;
           commit("VUE_FETCH_UPDATER", { api: path, status: "fetching" });
           if (prestart) prestart();
           function parsePath(path) {
@@ -132,8 +132,7 @@ export function options(fn, obj, opts) {
             })
             .then(data => {
               commit("VUE_FETCH_UPDATER", { api: path, status: "done" });
-              if (success) success(data);
-              return data;
+              return filter ? filter(data) : data;
             })
             .catch(err => {
               commit("VUE_FETCH_UPDATER", { api: path, status: "error" });
