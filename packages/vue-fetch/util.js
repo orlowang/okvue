@@ -1,4 +1,4 @@
-import { stringify } from "qs";
+const stringify = require("qs/lib/stringify");
 let { slice } = [],
   debug = false,
   ntick;
