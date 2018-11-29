@@ -1,3 +1,4 @@
+import { stringify } from "qs";
 let { slice } = [],
   debug = false,
   ntick;
@@ -85,14 +86,18 @@ export function options(fn, obj, opts) {
       state,
       mutations: {
         VUE_FETCH_UPDATER: (state, { api, status }) => {
-          state[api] = status;
+          if (typeof api === "string") {
+            state[api] = status;
+          } else {
+            state[api.url] = status;
+          }
         }
       },
       getters,
       actions: {
         VUE_FETCH_ACTION: ({ commit }, { path, data, config }) => {
           const _conf = { ...opts, ...config };
-          const { prestart, filter, failed, backend, api, ...rest } = _conf;
+          const { prestart, filter, failed, backend, api, blob, ...rest } = _conf;
           commit("VUE_FETCH_UPDATER", { api: path, status: "fetching" });
           if (prestart) prestart();
           function parsePath(path) {
@@ -111,24 +116,25 @@ export function options(fn, obj, opts) {
             rest.method = "GET";
             return _path;
           }
+          function fromatData(data) {
+            if (rest && rest.headers && rest.headers["content-type"]) {
+              if (
+                rest.headers["content-type"] ===
+                "application/x-www-form-urlencoded"
+              ) {
+                return stringify(data);
+              }
+            }
+            return JSON.stringify(data);
+          }
           return nativeFetch(parsePath(path), {
-            body: JSON.stringify(data),
+            body: fromatData(data),
             ...rest
           })
             .then(res => {
-              if (!res.ok) throw res;
-              const contentType = res.headers.get("Content-Type");
-              switch (true) {
-                case /multipart/.test(contentType):
-                  return res.formData();
-                case /text/.test(contentType):
-                  return res.text();
-                // !todo
-                case /video|audio|image|message|x-token/.test(contentType):
-                case /application/.test(contentType):
-                default:
-                  return res.json();
-              }
+              const type = res.headers.get("Content-Type");
+              if (!res.ok) throw { res, type };
+              return parseStream(res, type, blob);
             })
             .then(data => {
               commit("VUE_FETCH_UPDATER", { api: path, status: "done" });
@@ -136,16 +142,21 @@ export function options(fn, obj, opts) {
             })
             .catch(err => {
               commit("VUE_FETCH_UPDATER", { api: path, status: "error" });
-              if (err instanceof Response) {
-                err.json().then(info => {
-                  if (failed)
-                    failed({
-                      httpCode: err.status,
-                      httpStatus: err.statusText,
-                      ...info
-                    });
+              if (err.res) {
+                parseStream(err.res, err.type).then(info => {
+                  if (failed) {
+                    failed(
+                      {
+                        status: err.res.status,
+                        statusText: err.res.statusText,
+                        url: err.res.url
+                      },
+                      info
+                    );
+                  }
                 });
               } else {
+                // todo
                 // misspelled url like fetch('https::://hey.com') – TypeError Failed to execute 'fetch' on 'Window': Failed to parse URL from https::://hey.com;
                 // nonexistent url like fetch('http://hey') – TypeError: Failed to fetch (GET http://hey/ net::ERR_NAME_NOT_RESOLVED);
                 // you don't have an internet connection fetch('https://google.com') – TypeError: Failed to fetch (GET https://google.com/ net::ERR_NAME_RESOLUTION_FAILED)
@@ -153,8 +164,9 @@ export function options(fn, obj, opts) {
                 // because of the CORS fetch('https://google.com') – TypeError: Failed to fetch (Fetch API cannot load https://google.com/ has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource....)
                 if (failed)
                   failed({
-                    httpCode: null,
-                    httpStatus: err.message
+                    statusCode: 800,
+                    message: "Unknow Error",
+                    detail: err.message
                   });
               }
             });
@@ -164,6 +176,22 @@ export function options(fn, obj, opts) {
   }
 
   return merge(fn.bind({ $vm: obj, $options: opts }), fn, { $options: opts });
+}
+
+export function parseStream(src, type, blob) {
+  switch (true) {
+    case /multipart/.test(type):
+      return src.formData();
+    // !todo
+    case /video|audio|image|message|x-token/.test(type):
+    case /application\/json/.test(type):
+      return src.json();
+    case /text/.test(type):
+    case blob:
+      return src;
+    default:
+      return src.text();
+  }
 }
 
 export function merge(target) {
