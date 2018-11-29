@@ -30,6 +30,7 @@
     "access": "public"
   },
   "dependencies": {
+    "stringify": "^5.2.0",
     "url-search-params": "^1.1.0"
   },
   "gitHead": "074bede55aed873ffd5ba2c6847dd5b846f48c9a"
