@@ -97,7 +97,15 @@ export function options(fn, obj, opts) {
       actions: {
         VUE_FETCH_ACTION: ({ commit }, { path, data, config }) => {
           const _conf = { ...opts, ...config };
-          const { prestart, filter, failed, backend, api, blob, ...rest } = _conf;
+          const {
+            prestart,
+            filter,
+            failed,
+            backend,
+            api,
+            blob,
+            ...rest
+          } = _conf;
           commit("VUE_FETCH_UPDATER", { api: path, status: "fetching" });
           if (prestart) prestart();
           function parsePath(path) {
@@ -117,6 +125,10 @@ export function options(fn, obj, opts) {
             return _path;
           }
           function fromatData(data) {
+            if (typeof data === FormData) {
+              delete rest.headers["content-type"];
+              return data;
+            }
             if (rest && rest.headers && rest.headers["content-type"]) {
               if (
                 rest.headers["content-type"] ===
