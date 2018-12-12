@@ -7,7 +7,10 @@ async function build() {
   var pkg = await getDiretories(__root + "/packages");
   return Promise.all(
     pkg.map(async item => {
-      await cp.execSync(`cd ${__root}/packages/${item} && npm run build`);
+      const pkg = require(`${__root}/packages/${item}/package.json`);
+      if (pkg.scripts && pkg.scripts.build) {
+        await cp.execSync(`cd ${__root}/packages/${item} && npm run build`);
+      }
     })
   );
 }
