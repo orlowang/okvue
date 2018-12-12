@@ -14,6 +14,7 @@ class Vuefetch {
   }
 
   _init(fetchConfig) {
+    if (!fetchConfig) return;
     this._registerVuexBaseMutationsAndActions();
     this._instance = new Map();
     if (Array.isArray(fetchConfig)) {
@@ -205,11 +206,11 @@ class Vuefetch {
       }
     }
 
-    function execEvent(name, args) {
+    function execEvent(name, args1, args2) {
       if (current_life_cycle[4] && current_life_cycle[4][name]) {
-        current_life_cycle[4][name](args);
+        current_life_cycle[4][name](args1, args2);
       } else if (instance_options[0][name]) {
-        instance_options[0][name](args);
+        instance_options[0][name](args1, args2);
       }
     }
 
@@ -252,7 +253,9 @@ class Vuefetch {
               options.headers["File-Name"]
             // stream actions
           }
-        );
+        ).catch(err => {
+          throw { parseError: true, err };
+        });
       })
       .then(data => {
         execEvent("afterParesed", data);
@@ -271,6 +274,49 @@ class Vuefetch {
             api,
             status: "error"
           });
+        }
+        if (err.response && err.type) {
+          return parseStream(err.response, err.type).then(info => {
+            execEvent(
+              "failed",
+              {
+                status: err.response.status,
+                statusText: err.response.statusText,
+                url: err.response.url
+              },
+              info
+            );
+          });
+        } else if (err.parseError) {
+          execEvent(
+            "failed",
+            {
+              status: err.response.status,
+              statusText: "Interface parseing failed",
+              url: err.response.url
+            },
+            err.err
+          );
+        } else {
+          // misspelled url like fetch('https::://hey.com') – TypeError Failed to execute 'fetch' on 'Window': Failed to parse URL from https::://hey.com;
+          // nonexistent url like fetch('http://hey') – TypeError: Failed to fetch (GET http://hey/ net::ERR_NAME_NOT_RESOLVED);
+          // you don't have an internet connection fetch('https://google.com') – TypeError: Failed to fetch (GET https://google.com/ net::ERR_NAME_RESOLUTION_FAILED)
+          // because of the Content Security Policy fetch('https://google.com') – TypeError: Failed to fetch (Refused to connect to 'https://google.com/' because it violates the following Content Security Policy directive: "connect-src 'self'...)
+          // because of the CORS fetch('https://google.com') – TypeError: Failed to fetch (Fetch API cannot load https://google.com/ has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource....)
+          let statusText = err.message || "Unknow Error";
+          if (err.message === "Failed to fetch") {
+            statusText =
+              "UnknowError: it can be internet connection lost or provide an unreachable domain; Most likely a CORS or Content Security Policy problem";
+          }
+
+          execEvent(
+            "failed",
+            {
+              status: 400,
+              statusText
+            },
+            err.err
+          );
         }
       });
   }
@@ -335,7 +381,7 @@ class Vuefetch {
     this._createNewLifeCycle({ path });
     return this._doFetch(data, "POST", "UPLOAD");
   }
-  
+
   // todo stream
   // stream(path, data){
   //   this._createNewLifeCycle({ path });
