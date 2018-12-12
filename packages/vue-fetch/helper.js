@@ -12,7 +12,7 @@ export function parseStream(src, type, isStream) {
   if (isStream) {
     if (isStream.immediately) {
       // download
-      src.blob().then(blob => SaveFile(blob, isStream.filename));
+      return src.blob().then(blob => SaveFile(blob, isStream.filename));
     }
     // stream
   } else {

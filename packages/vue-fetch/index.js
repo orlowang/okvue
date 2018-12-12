@@ -371,6 +371,21 @@ class Vuefetch {
     return this._doFetch(data, "POST");
   }
 
+  delete(path, data) {
+    this._createNewLifeCycle({ path });
+    return this._doFetch(data, "DELETE");
+  }
+
+  put(path, data) {
+    this._createNewLifeCycle({ path });
+    return this._doFetch(data, "PUT");
+  }
+
+  patch(path, data) {
+    this._createNewLifeCycle({ path });
+    return this._doFetch(data, "PATCH");
+  }
+
   get(path, params) {
     this._createNewLifeCycle({ path });
     return this._doFetch(params, "GET");
