@@ -1,6 +1,6 @@
 {
   "name": "@okvue/vue-fetch",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "vue fetcher",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
@@ -23,6 +23,9 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@vue/test-utils": "^1.0.0-beta.25",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-node-resolve": "^3.4.0"
   },
@@ -31,7 +34,8 @@
   },
   "dependencies": {
     "stringify": "^5.2.0",
-    "url-search-params": "^1.1.0"
+    "url-search-params": "^1.1.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "gitHead": "074bede55aed873ffd5ba2c6847dd5b846f48c9a"
 }
