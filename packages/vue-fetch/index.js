@@ -131,7 +131,9 @@ class Vuefetch {
       throw Error(`domain "${current_domain}" is unregistered`);
     }
 
-    const real_path = this._api_path[current_domain][current_life_cycle[0]];
+    const real_path = this._api_path[current_domain]
+      ? this._api_path[current_domain][current_life_cycle[0]]
+      : current_life_cycle[0];
 
     if (!real_path) {
       throw Error(`"${current_life_cycle[0]}" is not registered`);
