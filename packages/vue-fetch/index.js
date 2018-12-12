@@ -62,6 +62,7 @@ class Vuefetch {
   }
 
   _registerVuexModule(apis, useRestful, name) {
+    if (!apis) return;
     const getters = {};
     this._api_path[name] = {
       ...this._api_path[name],
