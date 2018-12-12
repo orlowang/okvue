@@ -40,7 +40,6 @@ function click(node) {
 
 export default function SaveAs(blob, name) {
   if ("download" in HTMLAnchorElement.prototype) {
-    const URL = URL || webkitURL;
     const a = document.createElement("a");
     name = name || blob.name || "download";
 
@@ -78,7 +77,6 @@ export default function SaveAs(blob, name) {
       };
       reader.readAsDataURL(blob);
     } else {
-      const URL = URL || webkitURL;
       const url = URL.createObjectURL(blob);
       location.href = url;
       setTimeout(function() {
