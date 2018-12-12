@@ -37,6 +37,7 @@ class Vuefetch {
     } else if (fetchConfig.name) {
       const { name, vuex, api, ...rest } = fetchConfig;
       this._instance.set("default", [rest, vuex]);
+      this._api_path["default"] = api;
       if (vuex && vuex.enable) {
         this.stateCount.set(name, null);
         this._registerVuexModule(api, vuex.restful, name);
