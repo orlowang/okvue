@@ -1,6 +1,6 @@
 {
   "name": "@okvue/storage",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "localStorage, cooike, sessionStorage",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
