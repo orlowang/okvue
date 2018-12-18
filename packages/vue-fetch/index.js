@@ -220,10 +220,12 @@ class Vuefetch {
       }
     }
 
-    const api = vuex.restful
-      ? toLower(method) + "_" + current_life_cycle[0]
-      : current_life_cycle[0];
-
+    let api;
+    if (vuex.enable) {
+      api = vuex.restful
+        ? toLower(method) + "_" + current_life_cycle[0]
+        : current_life_cycle[0];
+    }
     execEvent("beforeFetch", { url, options });
     if (vuex.enable) {
       this._Vuex.dispatch("VUE_FETCH_API_STATUS_UPDATE", {
