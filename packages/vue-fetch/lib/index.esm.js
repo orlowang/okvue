@@ -1,6 +1,6 @@
 /*
  * library: @okvue/vue-fetch
- * version: 0.2.9
+ * version: 0.2.10
  * author: orlo wang <ow.cc@outlook.com>
  */
 function _typeof(obj) {
@@ -247,7 +247,9 @@ function () {
 
       if (!fetchConfig) return;
 
-      this._registerVuexBaseMutationsAndActions();
+      if (this._Vuex) {
+        this._registerVuexBaseMutationsAndActions();
+      }
 
       this._instance = new Map();
 
@@ -261,7 +263,7 @@ function () {
           if (name) {
             _this._instance.set(name, [rest, vuex]);
 
-            if (vuex && vuex.enable) {
+            if (_this._Vuex && vuex && vuex.enable) {
               _this.stateCount.set(name, null);
 
               _this._registerVuexModule(api, vuex.restful, name);
@@ -286,7 +288,7 @@ function () {
 
         this._api_path["default"] = api;
 
-        if (vuex && vuex.enable) {
+        if (this._Vuex && vuex && vuex.enable) {
           this.stateCount.set(name, null);
 
           this._registerVuexModule(api, vuex.restful, name);
@@ -394,7 +396,7 @@ function () {
           fileName = _instance_options$.fileName,
           options = _objectWithoutProperties(_instance_options$, ["beforeFetch", "afterResponse", "afterParesed", "filter", "failed", "prefix", "name", "headers", "fileName"]);
 
-      var vuex = instance_options[1] || {
+      var vuex = this._Vuex && instance_options[1] || {
         enable: false
       };
       var url = toPrefixPath(real_path, prefix);
