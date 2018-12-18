@@ -178,12 +178,14 @@ class Vuefetch {
 
     if (method === "GET") {
       options.headers["Content-Type"] = "application/x-www-form-urlencoded";
-      const seatch_url = new URLSearchParams();
-      Object.keys(dataOrParams).map(key => {
-        seatch_url.append(key, dataOrParams[key]);
-      });
-      url = url + "?" + seatch_url;
-    } else {
+      if (dataOrParams) {
+        const seatch_url = new URLSearchParams();
+        Object.keys(dataOrParams).map(key => {
+          seatch_url.append(key, dataOrParams[key]);
+        });
+        url = url + "?" + seatch_url;
+      }
+    } else if (dataOrParams) {
       switch (true) {
         case options.headers["Content-Type"] === undefined:
         case /multipart\/form-data/.test(options.headers["Content-Type"]):
