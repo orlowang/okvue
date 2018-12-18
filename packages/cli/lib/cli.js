@@ -48,7 +48,7 @@ module.exports = class cli {
 
     if (info.type === this.message.platform_pc) {
       repo_url = `bpovstop/admin#${
-        this.message.useTabView ? "with-tab" : "default"
+        info.useTabView ? "with-tab" : "default"
       }`;
     } else {
       repo_url = "bpovstop/mobile-tpl";
