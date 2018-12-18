@@ -1,6 +1,6 @@
 {
   "name": "@okvue/vue-fetch",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "vue fetcher",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
