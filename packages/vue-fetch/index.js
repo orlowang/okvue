@@ -133,12 +133,9 @@ class Vuefetch {
     }
 
     const real_path = this._api_path[current_domain]
-      ? this._api_path[current_domain][current_life_cycle[0]]
+      ? this._api_path[current_domain][current_life_cycle[0]] ||
+        current_life_cycle[0]
       : current_life_cycle[0];
-
-    if (!real_path) {
-      throw Error(`"${current_life_cycle[0]}" is not registered`);
-    }
 
     let instance_options = this._instance.get(current_domain);
     const {
