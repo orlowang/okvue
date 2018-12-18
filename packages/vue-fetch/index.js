@@ -15,14 +15,16 @@ class Vuefetch {
 
   _init(fetchConfig) {
     if (!fetchConfig) return;
-    this._registerVuexBaseMutationsAndActions();
+    if (this._Vuex) {
+      this._registerVuexBaseMutationsAndActions();
+    }
     this._instance = new Map();
     if (Array.isArray(fetchConfig)) {
       fetchConfig.map((config, index) => {
         const { name, vuex, api, ...rest } = config;
         if (name) {
           this._instance.set(name, [rest, vuex]);
-          if (vuex && vuex.enable) {
+          if (this._Vuex && vuex && vuex.enable) {
             this.stateCount.set(name, null);
             this._registerVuexModule(api, vuex.restful, name);
           }
@@ -38,7 +40,7 @@ class Vuefetch {
       const { name, vuex, api, ...rest } = fetchConfig;
       this._instance.set("default", [rest, vuex]);
       this._api_path["default"] = api;
-      if (vuex && vuex.enable) {
+      if (this._Vuex && vuex && vuex.enable) {
         this.stateCount.set(name, null);
         this._registerVuexModule(api, vuex.restful, name);
       }
@@ -155,7 +157,7 @@ class Vuefetch {
       // config
       ...options
     } = instance_options[0];
-    const vuex = instance_options[1] || { enable: false };
+    const vuex = this._Vuex && instance_options[1] || { enable: false };
     let url = toPrefixPath(real_path, prefix);
 
     if (spec === "DOWNLOAD") {
