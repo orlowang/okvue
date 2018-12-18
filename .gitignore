@@ -67,4 +67,8 @@ storybook-static
 *.no-need-ts-for-now
 
 # build files
+*/storage/lib
+*/view/lib
+*/vuex-bind/lib
+*/vue-fetch/lib
 .size-snapshot.json
