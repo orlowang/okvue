@@ -16,7 +16,7 @@ module.exports = {
   app_type_select: "Select app type:",
   app_type_mutiple: "Mutiple page app",
   app_type_single: "Single page app",
-  use_native_scroll: "Whether disable native scrolling?",
+  disable_native_scroll: "Whether disable native scrolling?",
   creating: "Creating...",
   fetch_repo: "fetching template...",
   success: "create success",

@@ -47,11 +47,11 @@ module.exports = class cli {
     const spinner = ora(this.message.creating);
 
     if (info.type === this.message.platform_pc) {
-      repo_url = `bpovstop/admin#${
-        info.useTabView ? "with-tab" : "default"
-      }`;
+      repo_url = `bpovstop/admin#${info.useTabView ? "with-tab" : "default"}`;
     } else {
-      repo_url = "bpovstop/mobile-tpl";
+      repo_url = `bpovstop/mobile-tpl#${
+        info.disableNativeScroll ? "custom-scroll" : "native-scroll"
+      }`;
     }
 
     fs.ensureDirSync(name);
@@ -133,8 +133,8 @@ module.exports = class cli {
               },
               {
                 type: "confirm",
-                name: "useNativeScroll",
-                message: this.message.use_native_scroll
+                name: "disableNativeScroll",
+                message: this.message.disable_native_scroll
               }
             ])
             .then(answers => {

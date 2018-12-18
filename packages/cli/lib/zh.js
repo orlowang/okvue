@@ -16,7 +16,7 @@ module.exports = {
   app_type_select: "请选择移动app类型:",
   app_type_mutiple: "多页入口",
   app_type_single: "单页入口",
-  use_native_scroll: "是否禁用原生滚动?(如果你不知道为什么就别禁用)",
+  disable_native_scroll: "是否禁用原生滚动?(如果你不知道为什么就别禁用)",
   creating: "创建中...",
   fetch_repo: "拉取模板中...",
   success: "创建成功",
