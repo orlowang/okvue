@@ -1,6 +1,6 @@
 /*
  * library: @okvue/vue-fetch
- * version: 0.2.10
+ * version: 0.2.11
  * author: orlo wang <ow.cc@outlook.com>
  */
 function _typeof(obj) {
