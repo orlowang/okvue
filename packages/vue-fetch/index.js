@@ -158,7 +158,7 @@ class Vuefetch {
       // config
       ...options
     } = instance_options[0];
-    const vuex = instance_options[1];
+    const vuex = instance_options[1] || { enable: false };
     let url = toPrefixPath(real_path, prefix);
 
     if (spec === "DOWNLOAD") {
