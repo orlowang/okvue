@@ -281,7 +281,7 @@ class Vuefetch {
             status: "error"
           });
         }
-        if (err.response && err.type) {
+        if (err.response) {
           return parseStream(err.response, err.type).then(info => {
             execEvent(
               "failed",
