@@ -275,7 +275,6 @@ class Vuefetch {
         return filter ? filter(data) : data;
       })
       .catch(err => {
-        execEvent("failed", err);
         if (vuex.enable) {
           this._Vuex.dispatch("VUE_FETCH_API_STATUS_UPDATE", {
             api,
