@@ -199,13 +199,13 @@ class Vuefetch {
             key => key.indexOf("__") === 0
           );
           if (need_append_to_url_srcs.length > 0) {
+            need_append_to_url_srcs.map(src => {
+              url += `/${src.replace(/__/, "")}/${dataOrParams[src]}`;
+            });
             Object.keys(dataOrParams).map(key => {
               if (need_append_to_url_srcs.indexOf(key) > -1) {
                 delete dataOrParams[key];
               }
-            });
-            need_append_to_url_srcs.map(src => {
-              url += `/${src.replace(/__/, "")}/${dataOrParams["__" + src]}`;
             });
           }
           options.body = JSON.stringify(dataOrParams);
