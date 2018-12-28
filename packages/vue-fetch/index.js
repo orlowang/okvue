@@ -157,7 +157,7 @@ class Vuefetch {
       // config
       ...options
     } = instance_options[0];
-    const vuex = this._Vuex && instance_options[1] || { enable: false };
+    const vuex = (this._Vuex && instance_options[1]) || { enable: false };
     let url = toPrefixPath(real_path, prefix);
 
     if (spec === "DOWNLOAD") {
@@ -195,17 +195,19 @@ class Vuefetch {
           options.body = fd.toString();
           break;
         case /application\/json/.test(options.headers["Content-Type"]):
-            const need_append_to_url_srcs = Object.keys(dataOrParams).filter(key => key.indexOf(/__/) === 0)
-            if (need_append_to_url_srcs.length > 0) {
-              Object.keys(dataOrParams).map(key => {
-                if (need_append_to_url_srcs.indexOf(key) > -1){
-                  delete dataOrParams[key]
-                }
-              })
-              need_append_to_url_srcs.map(src => {
-                url += `/${src.replace(/__/, '')}/${dataOrParams[src]}`
-              })
-            }
+          const need_append_to_url_srcs = Object.keys(dataOrParams).filter(
+            key => key.indexOf("__") === 0
+          );
+          if (need_append_to_url_srcs.length > 0) {
+            Object.keys(dataOrParams).map(key => {
+              if (need_append_to_url_srcs.indexOf(key) > -1) {
+                delete dataOrParams[key];
+              }
+            });
+            need_append_to_url_srcs.map(src => {
+              url += `/${src.replace(/__/, "")}/${dataOrParams["__" + src]}`;
+            });
+          }
           options.body = JSON.stringify(dataOrParams);
           break;
         case /application\/x-www-form-urlencoded/.test(
