@@ -195,6 +195,17 @@ class Vuefetch {
           options.body = fd.toString();
           break;
         case /application\/json/.test(options.headers["Content-Type"]):
+            const need_append_to_url_srcs = Object.keys(dataOrParams).map(key => key.indexOf(/__/) === 0)
+            if (need_append_to_url_srcs.length > 0) {
+              Object.keys(dataOrParams).map(key => {
+                if (need_append_to_url_srcs.indexOf(key) > -1){
+                  delete dataOrParams[key]
+                }
+              })
+              need_append_to_url_srcs.map(src => {
+                url += `/${src.replace(/__/, '')}/${dataOrParams[src]}`
+              })
+            }
           options.body = JSON.stringify(dataOrParams);
           break;
         case /application\/x-www-form-urlencoded/.test(
